@@ -9,7 +9,7 @@ require('dotenv').config();
 require('./Models/db');
 const PORT = process.env.PORT || 8080;
 
-app.get('/', (req, res) => {
+app.get('/ping', (req, res) => {
     res.send('PONG');
 });
 

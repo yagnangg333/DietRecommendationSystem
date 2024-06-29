@@ -20,14 +20,47 @@ function Signup() {
         setSignupInfo(copySignupInfo);
     }
 
+    // const handleSignup = async (e) => {
+    //     e.preventDefault();
+    //     const { name, email, password } = signupInfo;
+    //     if (!name || !email || !password) {
+    //         return handleError('name, email and password are required')
+    //     }
+    //     try {
+    //         const url = `https://localhost:8080/auth/signup`;
+    //         const response = await fetch(url, {
+    //             method: "POST",
+    //             headers: {
+    //                 'Content-Type': 'application/json'
+    //             },
+    //             body: JSON.stringify(signupInfo)
+    //         });
+    //         const result = await response.json();
+    //         const { success, message, error } = result;
+    //         if (success) {
+    //             handleSuccess(message);
+    //             setTimeout(() => {
+    //                 navigate('/login')
+    //             }, 1000)
+    //         } else if (error) {
+    //             const details = error?.details[0].message;
+    //             handleError(details);
+    //         } else if (!success) {
+    //             handleError(message);
+    //         }
+    //         console.log(result);
+    //     } catch (err) {
+    //         handleError(err);
+    //     }
+    // }
     const handleSignup = async (e) => {
         e.preventDefault();
         const { name, email, password } = signupInfo;
         if (!name || !email || !password) {
-            return handleError('name, email and password are required')
+            return handleError('Name, email, and password are required');
         }
         try {
-            const url = `https://localhost:8080/auth/signup`;
+            const url = `http://localhost:8080/auth/signup`;
             const response = await fetch(url, {
                 method: "POST",
                 headers: {
@@ -35,24 +68,31 @@ function Signup() {
                 },
                 body: JSON.stringify(signupInfo)
             });
+    
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+    
             const result = await response.json();
             const { success, message, error } = result;
             if (success) {
                 handleSuccess(message);
                 setTimeout(() => {
                     navigate('/login')
-                }, 1000)
+                }, 1000);
             } else if (error) {
-                const details = error?.details[0].message;
+                const details = error?.details[0]?.message || 'Signup failed';
                 handleError(details);
             } else if (!success) {
                 handleError(message);
             }
             console.log(result);
         } catch (err) {
-            handleError(err);
+            handleError(err.message || 'An unexpected error occurred');
+            console.error('Signup error:', err);
         }
     }
+    
     return (
         <div className='container'>
             <h1>Signup</h1>
