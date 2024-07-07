@@ -5,7 +5,6 @@ import RefrshHandler from './RefrshHandler';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
-import Dashboard from './pages/DashBoard';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -21,7 +20,6 @@ function App() {
         <Route path='/' element={<Navigate to="/login" />} />
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
-        <Route path='/dashboard' element={<Dashboard />} />
         <Route path='/home' element={<PrivateRoute element={<Home />} />} />
       </Routes>
     </div>

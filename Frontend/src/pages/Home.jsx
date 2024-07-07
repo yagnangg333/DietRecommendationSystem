@@ -23,7 +23,6 @@ function Home() {
 
     return (
         <div>
-            <button onClick={() => {navigate('/dashboard')}}> Click To Calculate Diet</button>
             <button onClick={handleLogout}>Logout</button>
             <h1>Welcome {loggedInUser}</h1>
             <ToastContainer />
